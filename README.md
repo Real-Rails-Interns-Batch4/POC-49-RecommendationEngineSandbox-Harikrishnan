@@ -19,4 +19,6 @@ A cinematic, inspectable, and interactive demand-capture sandbox built to turn a
 - **Data Controls:** Scenario resets and downloadable interaction datasets.
 
 ## Screenshots
-*(Screenshots of the cinematic dashboard and developer signature will be added here upon completion.)*
+
+**Final Optimized UI (Strict 70:30 Layout):**
+![Dashboard Optimized View](screenshots/Screenshot-2026-06-17-at-10.54.25-AM.png)

@@ -1,0 +1,4 @@
+[
+    {"id": 1, "title": "AI Agent Orchestration", "category": "Technology", "base_relevance": 98, "price": 0.0, "age_days": 2},
+    {"id": 2, "title": "Global Market Analysis", "category": "Economy", "base_relevance": 85, "price": 62.5, "age_days": 14}
+]

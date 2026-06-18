@@ -23,7 +23,7 @@ export default function RecommendationSandbox() {
   const fetchRankings = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/api/re-rank", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/re-rank`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -62,13 +62,8 @@ export default function RecommendationSandbox() {
     downloadAnchor.remove();
   };
 
-  const top3 = items.slice(0, 3);
-  const avgPrice = top3.length ? top3.reduce((acc, curr) => acc + curr.price, 0) / 3 : 0;
-  const avgRelevance = top3.length ? top3.reduce((acc, curr) => acc + curr.base_relevance, 0) / 3 : 0;
-
   return (
-    <main className="min-h-screen bg-[#030712] text-white font-sans p-6">
-      {/* Header */}
+    <main className="min-h-screen bg-gradient-to-br from-[#030712] via-[#0B1120] to-[#111827] text-white font-sans p-6">
       <header className="border-b border-[#1F2937] pb-4 mb-6 flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold text-[#38BDF8]">Recommendation Engine Sandbox</h1>
@@ -79,10 +74,7 @@ export default function RecommendationSandbox() {
         </div>
       </header>
 
-      {/* Strict 70:30 Layout */}
       <div className="flex flex-col lg:flex-row gap-6">
-        
-        {/* LEFT: Main Intelligence View (70%) */}
         <section className="lg:w-[70%] flex flex-col gap-6">
           <div className="bg-[#0B1117] p-6 rounded-lg border border-[#1F2937]">
             <h2 className="text-lg font-semibold mb-4 text-gray-200">Model Score & Ranking Matrix View</h2>
@@ -117,33 +109,39 @@ export default function RecommendationSandbox() {
           </div>
         </section>
 
-        {/* RIGHT: Intelligence Layer (30%) */}
         <aside className="lg:w-[30%] flex flex-col gap-6">
-          <div className="bg-[#0B1117] p-6 rounded-lg border border-[#1F2937]">
+          {/* Glassmorphism Configuration Room */}
+          <div className="bg-white/5 backdrop-blur-xl p-6 rounded-lg border border-white/10 shadow-2xl">
             <h2 className="text-lg font-semibold mb-4 text-[#38BDF8]">Configuration Room</h2>
             <div className="space-y-4">
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Relevance Weight</label>
-                <input type="range" min="0" max="2" step="0.1" value={relevanceWeight} onChange={(e) => setRelevanceWeight(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
+                <input type="range" min="0.1" max="2" step="0.1" value={relevanceWeight} onChange={(e) => setRelevanceWeight(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
               </div>
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Price Sensitivity</label>
-                <input type="range" min="0" max="2" step="0.1" value={priceSensitivity} onChange={(e) => setPriceSensitivity(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
+                <input type="range" min="0.1" max="2" step="0.1" value={priceSensitivity} onChange={(e) => setPriceSensitivity(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
               </div>
               <div>
                 <label className="text-xs text-gray-400 block mb-1">Recency Bias</label>
-                <input type="range" min="0" max="2" step="0.1" value={recencyWeight} onChange={(e) => setRecencyWeight(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
+                <input type="range" min="0.1" max="2" step="0.1" value={recencyWeight} onChange={(e) => setRecencyWeight(parseFloat(e.target.value))} className="w-full accent-[#38BDF8]" />
               </div>
-              <div className="flex gap-2 pt-4">
-                <button onClick={handleReset} className="flex-1 bg-[#1F2937] hover:bg-gray-700 text-xs py-2 rounded transition">Reset</button>
-                <button onClick={downloadData} className="flex-1 bg-[#38BDF8] text-black hover:bg-cyan-400 text-xs py-2 rounded transition font-bold">Download JSON</button>
+              <div className="flex flex-col gap-2 pt-4">
+                <button onClick={handleReset} className="w-full bg-[#1F2937] hover:bg-gray-700 text-xs py-2 rounded transition">Reset</button>
+                <button onClick={downloadData} className="w-full bg-[#38BDF8] text-black hover:bg-cyan-400 text-xs py-2 rounded transition font-bold">Download Result JSON</button>
+                <a href="/sample_data.json" download className="w-full border border-[#38BDF8] text-[#38BDF8] hover:bg-[#38BDF8] hover:text-black text-xs py-2 rounded transition font-bold text-center">Download Sample Data</a>
               </div>
             </div>
           </div>
 
           <div className="bg-[#0B1117] p-6 rounded-lg border border-[#1F2937]">
             <h3 className="text-xs font-bold text-[#818CF8] mb-2">Why This Matters</h3>
-            <p className="text-[11px] text-gray-400">Algorithmic ranking engines often operate as black boxes. This sandbox makes bias transparent, allowing allocators to simulate how weight shifts redistribute visibility.</p>
+            <p className="text-[11px] text-gray-400 leading-relaxed">Algorithmic ranking engines often operate as black boxes. This sandbox makes bias transparent, allowing allocators to simulate how weight shifts redistribute visibility.</p>
+          </div>
+
+          <div className="bg-[#0B1117] p-6 rounded-lg border border-[#1F2937]">
+            <h3 className="text-xs font-bold text-[#818CF8] mb-2">Who Controls the Rail</h3>
+            <p className="text-[11px] text-gray-400 leading-relaxed">Users calibrate preference sliders in real-time, but the platform operator hardcodes the core mathematical scoring formula and default weight boundaries.</p>
           </div>
         </aside>
       </div>

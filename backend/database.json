@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "title": "AI Agent Orchestration",
+        "relevance": 98,
+        "price": 0.0,
+        "age_days": 2
+    },
+    {
+        "id": 2,
+        "title": "Global Market Analysis",
+        "relevance": 85,
+        "price": 62.5,
+        "age_days": 14
+    },
+    {
+        "id": 3,
+        "title": "Quantum Computing Hardware",
+        "relevance": 93,
+        "price": 654.0,
+        "age_days": 5
+    }
+]
